@@ -3,10 +3,12 @@ class WiWienKiUseCase extends HTMLElement {
     json = {};
     result = {};
     output = null;
+    base = '';
 
     constructor() {
         super();
         this.attachShadow({mode: 'open'});
+        this.base = this.getAttribute('base');
     }
 
     connectedCallback() {
@@ -15,9 +17,8 @@ class WiWienKiUseCase extends HTMLElement {
 
         const linkElem = document.createElement("link");
         linkElem.setAttribute("rel", "stylesheet");
-        linkElem.setAttribute("href", "script/KiUseCase.css");
+        linkElem.setAttribute("href", this.base + "script/KiUseCase.css");
         this.shadowRoot.appendChild(linkElem);
-
         this.loadData();
     }
 
@@ -28,7 +29,7 @@ class WiWienKiUseCase extends HTMLElement {
      * @returns {Promise<void>}
      */
     async loadData() {
-        const url = 'kiusecase.json';
+        const url = this.base + 'kiusecase.json';
         const data = await fetch(url);
         this.json = await data.json();
         this.renderPage(this.json.start);
@@ -75,7 +76,7 @@ class WiWienKiUseCase extends HTMLElement {
      * @returns {Promise<void>}
      */
     async renderResult() {
-        const response = await fetch('bmc.svg');
+        const response = await fetch(this.base + 'bmc.svg');
         const svgElement = document.createElement('div');
         svgElement.innerHTML = await response.text();
 

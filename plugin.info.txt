@@ -1,0 +1,7 @@
+base   wiwien
+author Andreas Gohr
+email  gohr@cosmocode.de
+date   2024-01-02
+name   WiWiEn plugin
+desc   WiWiEn specific plugin stuff
+url    https://www.wiwien-project.de
