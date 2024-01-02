@@ -1,0 +1,144 @@
+start: keyactivities
+pages:
+  keyactivities:
+    q: Verändert sich mit dem KI-Use Case die durch ihr Unternehmen adressierten Bedürfnisse und Probleme Ihrer Kundinnen und Kunden?
+    a:
+      -
+        c: Mit dem KI-Use Case können wir Bedürfnisse und Probleme bestehender oder potenzieller Kundinnen und Kunden adressieren, die wir bisher nicht befriedigen oder lösen konnten.
+        v: 2
+        t: FIXME definieren Sie die Bedürfnisse und Probleme
+        n: customersegments
+      -
+        c: Wir adressieren zwar die gleichen Bedürfnisse und Probleme wir bisher, können diese aber mit dem KI-Use Case besser lösen bzw. befriedigen.
+        v: 1
+        n: customersegments
+      -
+        c: Der KI-Use Case hat keine Auswirkungen auf die mit unserem Geschäftsmodell adressierten Bedürfnisse und Probleme unserer Kundinnen und Kunden.
+        v: 0
+        n: channels
+  customersegments:
+    q: Inwiefern ermöglicht Ihnen der KI-Use Case neue Kundinnen und Kunden zu gewinnen?
+    a:
+      -
+        c: Mit dem KI Use Case können wir Kundensegmente in den Blick nehmen, für die wir bisher keine Leistungen anbieten konnten oder wollten.
+        v: 2
+        n: revenuestreams
+      -
+        c: Mit dem KI-Use Case adressieren wir die gleichen Kundensegmente wie bisher, gehen aber von einer stärkeren Durchdringung dieser Kundensegmente aus.
+        v: 1
+        n: revenuestreams
+      -
+        c: Mit dem KI-Use Case können wir weder neue Kundensegmente erschließen noch bestehende stärker durchdringen.
+        v: 0
+        n: channels
+  revenuestreams:
+    q: Welche Auswirkungen hat der KI-Use Case auf die Art und Weise, wie Sie mit Ihrem Geschäftsmodell Geld verdienen?
+    a:
+      -
+        c: Mit dem KI-Use Case sind wir in der Lage, für uns neue Einnahmequellen wie z.B. Abonnement- oder Lizenzgebühren zu erschließen.
+        v: 2
+        n: channels
+      -
+        c: Wir können zwar keine neuen Einnahmequellen erschließen, gehen aber davon aus, dass der KI Use-Case zu einer Steigerung unserer Umsätze führen wird.
+        v: 1
+        n: channels
+      -
+        c: Der KI Use Case wird keine Auswirkungen auf unsere Einnahmen haben.
+        v: 0
+        n: channels
+  channels:
+    q: Verändert der KI-Use Case die Art und Weise wie Sie mit Ihren Kunden kommunizieren?
+    a:
+      -
+        c: Ja, der KI Use Case ermöglicht oder erfordert es, uns über alternative, für uns neue Kanäle mit unseren Kunden zu kommunizieren.
+        v: 2
+        n: customerrelationships
+      -
+        c: Wir nutzen weiterhin die gleichen Kanäle wie bisher, können diese allerdings mit dem KI-Use Case effizienter betreiben.
+        v: 2
+        n: customerrelationships
+      - c: Nein, aus dem KI-Use Case resultieren keine Änderungen der Kundenkanäle
+        v: 0
+        n: valuepropositions
+  customerrelationships:
+    q: Wir wirkt sich der KI Use Case auf die Art der Beziehung Ihres Unternehmens zu Ihren Kundinnen und Kunden aus?
+    a:
+      -
+        c: Der KI Use Case erfordert oder ermöglicht es, für uns neue Arten der Kundenbeziehung aufzubauen bzw. auf bestehende zu verzichten.
+        v: 2
+        n: valuepropositions
+      - c: Grundsätzlich werden aus dem KI-Use Case keine neuen Arten an Kundenbeziehungen hinzukommen oder bestehende entfernt. Allerdings wird es zu einer Verschiebung hinsichtlich der Bedeutung der bestehenden Arten kommen.
+        v: 1
+        n: valuepropositions
+      - c: Der KI-Use Case hat keine Auswirkungen auf die bisher eingesetzten Arten an Kundenbeziehungen.
+        v: 0
+        n: valuepropositions
+  valuepropositions:
+    q: Inwiefern führt der KI-Use Case zu einer Veränderung der Wertschöpfungsprozesse Ihres Unternehmens?
+    a:
+      -
+        c: Mit der Umsetzung des KI-Use Cases werden bestimmte Prozesse essenzielle Bedeutung für unser Geschäftsmodell gewinnen, die bisher nicht vorhanden oder nur wenig bedeutend waren.
+        v: 2
+        n: keyresources
+      - c: Bisher, für den Erfolg unseres Geschäftsmodells sehr wichtige Prozesse werden durch den KI-Use Case an Bedeutung verlieren.
+        v: 2
+        n: keyresources
+      - c: Der KI- Use Case führt zu Veränderungen der vorhandenen Prozesse (z.B. Effizienzsteigerung, neue Anforderungen). Bezogen auf unser gesamtes Geschäftsmodell gewinnen oder verlieren einzelne Prozesse jedoch nicht signifikant an Bedeutung.
+        v: 1
+        n: keyresources
+      - c: Die Auswirkungen des KI-Use Cases auf unser Wertschöpfungsprozesse sind gering. Betroffen sind allenfalls wenige, bezogen auf unser Geschäftsmodell sekundäre Prozesse.
+        v: 0
+        n: keyresources
+  keyresources:
+    q: Welche Auswirkungen resultieren aus dem KI-Use Case auf die materiellen oder im-materiellen Ressourcen des Unternehmens?
+    a:
+      -
+        c: Der KI-Use Case wird zum Aufbau neuer Ressourcen führen (z.B. Daten, Kompetenz bzgl. KI-Methoden) , die einen entscheidenden Einfluss auf unser Geschäftsmodell haben werden.
+        v: 2
+        n: keypartners
+      -
+        c: Mit der Umsetzung des Use-Cases verlieren materielle oder immaterielle Ressourcen, die bisher entscheidend für unseren Geschäftserfolg waren, an Bedeutung.
+        v: 2
+        n: keypartners
+      -
+        c: Für den Betrieb des KI-Use Cases sind neue Ressourcen erforderlich (z.B. IT-Infrastruktur), die jedoch bezogen auf unser Geschäftsmodell eine eher geringe Bedeutung haben.
+        v: 1
+        n: keypartners
+      - c: Durch den KI-Use Case ergeben sich keine Änderungen hinsichtlich der Ressourcen des Unternehmens.
+        v: 0
+        n: keypartners
+  keypartners:
+    q: Ergeben sich aus dem KI-Use Case Änderungen bezogen auf die Kooperationspartner Ihres Unternehmens?
+    a:
+      -
+        c: Mit der Umsetzung des KI-Use Cases gewinnen eine oder mehrere externe Organisationen strategische Bedeutung für unser Geschäftsmodell.
+        v: 2
+        n: coststructure
+      -
+        c: Mit der Umsetzung des KI-Use Cases werden Organisationen, die bisher strategische Partner von uns waren, an Bedeutung verlieren.
+        v: 2
+        n: coststructure
+      -
+        c: Für die Umsetzung und den Betrieb des KI-Use Cases werden wir auf externe Partner angewiesen sein, die aber keine strategische Bedeutung für unser Geschäftsmodell haben werden.
+        v: 1
+        n: coststructure
+      -
+        c: Der KI Use-Case hat keine Auswirkungen auf unsere Partnerstruktur.
+        v: 0
+        n: coststructure
+  coststructure:
+    q: Inwiefern wird die Kostenstruktur Ihres Geschäftsmodells durch den KI-Use Case verändert?
+    a:
+      -
+        c: Die Umsetzung des KI-Use Cases wird zu einer signifikanten Reduktion mindestens einer wesentlicher Kosten-position unseres Geschäftsmodells führen.
+        v: 2
+      -
+        c: Mit der Einführung des KI-Use Cases werden zusätzliche Kosten in für unser Geschäftsmodell signifikantem Umfang entstehen.
+        v: 2
+      -
+        c: Der KI-Use Case wird zu einer Verringerung oder Erhöhung einzelner Kostenarten führen ohne dass damit signifikante Auswirkungen auf das Geschäftsmodell verbunden sind
+        v: 1
+      -
+        c: Durch den KI-Use Case wird sich die Kostenstruktur unseres Geschäftsmodell nicht oder kaum verändern.
+        v: 0
+result: FIXME Die folgende Business Model Canvas sollte Ihnen als Starthilfe dienen um...
