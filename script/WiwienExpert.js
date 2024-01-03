@@ -1,4 +1,10 @@
-class WiWienKiUseCase extends HTMLElement {
+/**
+ * This is a web component encapsulating the mechanism of the Expert System
+ *
+ * Note this web component does NOT use a shadow DOM, so it uses all the CSS
+ * from the parent document.
+ */
+class WiwienExpert extends HTMLElement {
 
     json = {};
     result = {};
@@ -7,31 +13,13 @@ class WiWienKiUseCase extends HTMLElement {
 
     constructor() {
         super();
-        this.attachShadow({mode: 'open'});
         this.base = this.getAttribute('base');
     }
 
     connectedCallback() {
-        this.shadowRoot.innerHTML = `<slot></slot>`;
-        this.output = this.shadowRoot.querySelector('slot');
-
-        const linkElem = document.createElement("link");
-        linkElem.setAttribute("rel", "stylesheet");
-        linkElem.setAttribute("href", this.base + "script/KiUseCase.css");
-        this.shadowRoot.appendChild(linkElem);
-        this.loadData();
-    }
-
-
-    /**
-     * Load the JSON data
-     *
-     * @returns {Promise<void>}
-     */
-    async loadData() {
-        const url = this.base + 'kiusecase.json';
-        const data = await fetch(url);
-        this.json = await data.json();
+        this.output = document.createElement('div');
+        this.append(this.output);
+        this.json = JSON.parse(this.getAttribute('json'));
         this.renderPage(this.json.start);
     }
 
@@ -44,11 +32,10 @@ class WiWienKiUseCase extends HTMLElement {
         const pageData = this.json.pages[page];
 
         const pageElement = document.createElement('div');
-        const questionElement = document.createElement('p');
+        const questionElement = document.createElement('div');
         const answerElement = document.createElement('div');
         pageElement.append(questionElement);
         pageElement.append(answerElement);
-
         questionElement.innerHTML = pageData.q;
 
         const answers = pageData.a;
@@ -78,6 +65,7 @@ class WiWienKiUseCase extends HTMLElement {
     async renderResult() {
         const response = await fetch(this.base + 'bmc.svg');
         const svgElement = document.createElement('div');
+        svgElement.classList.add('bmc');
         svgElement.innerHTML = await response.text();
 
         for (const key in this.json.pages) {
@@ -105,7 +93,7 @@ class WiWienKiUseCase extends HTMLElement {
             }
         }
 
-        const resultElement = document.createElement('p');
+        const resultElement = document.createElement('div');
         resultElement.innerHTML = this.json.result;
         this.output.innerHTML = '';
         this.output.append(resultElement);
@@ -113,5 +101,5 @@ class WiWienKiUseCase extends HTMLElement {
     }
 }
 
-customElements.define('wiwien-kiusecase', WiWienKiUseCase);
+customElements.define('wiwien-expert', WiwienExpert);
 

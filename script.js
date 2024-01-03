@@ -1,1 +1,1 @@
-/* DOKUWIKI:include script/KiUseCase.js */
+/* DOKUWIKI:include script/WiwienExpert.js */
