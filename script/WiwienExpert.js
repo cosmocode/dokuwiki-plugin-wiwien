@@ -10,6 +10,7 @@ class WiwienExpert extends HTMLElement {
     result = {};
     output = null;
     base = '';
+    colors = {};
 
     constructor() {
         super();
@@ -21,6 +22,9 @@ class WiwienExpert extends HTMLElement {
         this.append(this.output);
         this.json = JSON.parse(this.getAttribute('json'));
         this.renderPage(this.json.start);
+        this.colors.default = this.json.colors.default ?? '#fff';
+        this.colors.highlight1 = this.json.colors.highlight1 ?? '#DAE8FC';
+        this.colors.highlight2 = this.json.colors.highlight2 ?? '#E6E6E6';
     }
 
     /**
@@ -58,31 +62,32 @@ class WiwienExpert extends HTMLElement {
     }
 
     /**
-     * Render the result page by coloring the premade BMC
+     * Render the result page by coloring the premade SVG image
      *
      * @returns {Promise<void>}
      */
     async renderResult() {
-        const response = await fetch(this.base + 'bmc.svg');
+        const response = await fetch(this.base + this.json.image + '.svg', {cache: 'no-cache'});
         const svgElement = document.createElement('div');
-        svgElement.classList.add('bmc');
+        svgElement.classList.add('result-image');
         svgElement.innerHTML = await response.text();
 
-        for (const key in this.json.pages) {
+        for (let key in this.json.pages) {
             const answer = this.result[key] ?? {};
+            key = answer['r'] ?? key;
 
             // color the boxes according to the value
-            const box = svgElement.querySelector(`[data-address="${key}_box"] path`);
+            const box = svgElement.querySelector(`[data-address="${key}_box"] path, [data-address="${key}_box"] ellipse`);
             if (box) {
                 switch (answer.v ?? 0) {
                     case 2:
-                        box.setAttribute('stroke', '#DAE8FC');
+                        box.setAttribute('fill', this.colors.highlight2);
                         break;
                     case 1:
-                        box.setAttribute('stroke', '#E6E6E6');
+                        box.setAttribute('fill', this.colors.highlight1);
                         break;
                     default:
-                        box.setAttribute('stroke', '#ffffff');
+                        box.setAttribute('fill', this.colors.default);
                         break;
                 }
             }
