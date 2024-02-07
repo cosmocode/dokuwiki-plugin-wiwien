@@ -10,7 +10,11 @@ class WiwienExpert extends HTMLElement {
     result = {};
     output = null;
     base = '';
-    colors = {};
+    colors = {
+        'default': '#fff',
+        'highlight1': '#DAE8FC',
+        'highlight2': '#E6E6E6'
+    };
 
     constructor() {
         super();
@@ -22,9 +26,15 @@ class WiwienExpert extends HTMLElement {
         this.append(this.output);
         this.json = JSON.parse(this.getAttribute('json'));
         this.renderPage(this.json.start);
-        this.colors.default = this.json.colors.default ?? '#fff';
-        this.colors.highlight1 = this.json.colors.highlight1 ?? '#DAE8FC';
-        this.colors.highlight2 = this.json.colors.highlight2 ?? '#E6E6E6';
+        if (typeof this.json.colors.default != 'undefined') {
+            this.colors.default = this.json.colors.default;
+        }
+        if (typeof this.json.colors.highlight1 != 'undefined') {
+            this.colors.highlight1 = this.json.colors.highlight1;
+        }
+        if (typeof this.json.colors.highlight2 != 'undefined') {
+            this.colors.highlight2 = this.json.colors.highlight2;
+        }
     }
 
     /**
