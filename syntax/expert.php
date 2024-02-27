@@ -50,6 +50,13 @@ class syntax_plugin_wiwien_expert extends \dokuwiki\Extension\SyntaxPlugin
             return [];
         }
 
+        // image
+        if (!empty($data['image']) && strpos($data['image'], '.svg') !== false) {
+            $data['image'] = ml($data['image'], '', true, '&', true);
+        } else {
+            $data['image'] = DOKU_BASE . 'lib/plugins/wiwien/' . $data['image'] . '.svg';
+        }
+
         // render wiki text
         $info = [];
         $data['result'] = p_render('xhtml', p_get_instructions($data['result'] ?? '') , $info);
@@ -69,8 +76,8 @@ class syntax_plugin_wiwien_expert extends \dokuwiki\Extension\SyntaxPlugin
         }
 
         $renderer->doc .= sprintf(
-            '<wiwien-expert base="%s" json="%s"></wiwien-expert>',
-            DOKU_BASE . 'lib/plugins/wiwien/',
+            '<wiwien-expert image="%s" json="%s"></wiwien-expert>',
+            hsc($data['image']),
             hsc(json_encode($data))
         );
 

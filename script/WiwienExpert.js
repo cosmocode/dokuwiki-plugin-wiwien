@@ -9,16 +9,17 @@ class WiwienExpert extends HTMLElement {
     json = {};
     result = {};
     output = null;
-    base = '';
+    image = '';
     colors = {
-        'default': '#fff',
-        'highlight1': '#DAE8FC',
-        'highlight2': '#E6E6E6'
+        "0": '#fff',
+        "1": '#DAE8FC',
+        "2": '#E6E6E6',
+        "3": '#2d5169'
     };
 
     constructor() {
         super();
-        this.base = this.getAttribute('base');
+        this.image = this.getAttribute('image');
     }
 
     connectedCallback() {
@@ -26,15 +27,8 @@ class WiwienExpert extends HTMLElement {
         this.append(this.output);
         this.json = JSON.parse(this.getAttribute('json'));
         this.renderPage(this.json.start);
-        if (typeof this.json.colors.default != 'undefined') {
-            this.colors.default = this.json.colors.default;
-        }
-        if (typeof this.json.colors.highlight1 != 'undefined') {
-            this.colors.highlight1 = this.json.colors.highlight1;
-        }
-        if (typeof this.json.colors.highlight2 != 'undefined') {
-            this.colors.highlight2 = this.json.colors.highlight2;
-        }
+
+        this.colors = Object.assign(this.colors, this.json.colors);
     }
 
     /**
@@ -77,35 +71,51 @@ class WiwienExpert extends HTMLElement {
      * @returns {Promise<void>}
      */
     async renderResult() {
-        const response = await fetch(this.base + this.json.image + '.svg', {cache: 'no-cache'});
+        const response = await fetch(this.image, {cache: 'no-cache'});
         const svgElement = document.createElement('div');
         svgElement.classList.add('result-image');
         svgElement.innerHTML = await response.text();
 
-        for (let key in this.json.pages) {
-            const answer = this.result[key] ?? {};
-            key = answer['r'] ?? key;
-
-            // color the boxes according to the value
-            const box = svgElement.querySelector(`[data-address="${key}_box"] path, [data-address="${key}_box"] ellipse`);
+        /**
+         * Color the boxes according to the value
+         *
+         * @param a Box address
+         * @param c Color
+         * @param t Text
+         */
+        function color(a, c, t) {
+            const box = svgElement.querySelector(`[data-address="${a}_box"]`);
             if (box) {
-                switch (answer.v ?? 0) {
-                    case 2:
-                        box.setAttribute('fill', this.colors.highlight2);
-                        break;
-                    case 1:
-                        box.setAttribute('fill', this.colors.highlight1);
-                        break;
-                    default:
-                        box.setAttribute('fill', this.colors.default);
-                        break;
-                }
+                const highlights = box.querySelectorAll('path, ellipse');
+                highlights.forEach(element => {
+                    element.setAttribute('fill', c);
+                    element.setAttribute('fill-opacity', '60%');
+                });
             }
 
-            const text = svgElement.querySelector(`[data-address="${key}_text"] foreignObject div div div`);
+            const text = svgElement.querySelector(`[data-address="${a}_text"] foreignObject div div div`);
             if (text) {
-                text.innerText = answer.t ?? '';
+                text.innerText = t;
             }
+        }
+
+        for (const page in this.json.pages) {
+            const answer = this.result[page] ?? {};
+            // target can differ from key and can be explicitly defined as "r"
+            let key = answer['r'] ?? page;
+            let v = answer.v ?? [0];
+
+            // make sure we can iterate over keys and values
+            if (!Array.isArray(key)) {
+                key = [key];
+            }
+            if (!Array.isArray(v)) {
+                v = [v];
+            }
+
+            key.forEach((address, idx) => {
+                color.call(this, address, this.colors[v[idx]], answer.t ?? '');
+            });
         }
 
         const resultElement = document.createElement('div');
@@ -117,4 +127,3 @@ class WiwienExpert extends HTMLElement {
 }
 
 customElements.define('wiwien-expert', WiwienExpert);
-
